@@ -10,6 +10,9 @@ images = {"original": None, "sketch": None}
 
 
 def open_file():
+    """
+    Just open image
+    """
     filepath = filedialog.askopenfilename()
     if not filepath:
         return
@@ -20,6 +23,10 @@ def open_file():
 
 
 def convert_to_sketch(img):
+    """
+    Converted our image to sketch
+    make it gray than inverted, blured and divide
+    """
     gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     inverted_img = cv2.bitwise_not(gray_img)
     blurred_img = cv2.GaussianBlur(inverted_img, (21, 21), sigmaX=0, sigmaY=0)
@@ -29,6 +36,10 @@ def convert_to_sketch(img):
 
 
 def display_image(img, original):
+    """
+    Function to show images in a window with
+    size limits (max width and height)
+    """
     max_width = 600
     max_height = 600
     img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB) if original else img
@@ -49,6 +60,9 @@ def display_image(img, original):
 
 
 def save_sketch():
+    """
+    Saving a file
+    """
     if images["sketch"] is None:
         messagebox.showerror("Error", "No scketch to save.")
         return
@@ -59,6 +73,10 @@ def save_sketch():
     
     images["sketch"].save(sketch_filepath, "PNG")
     messagebox.showinfo("Saved", f"Sketch seved to {sketch_filepath}")
+
+"""
+Create window using tkintro
+"""
 
 
 app = tk.Tk()
